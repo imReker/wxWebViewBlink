@@ -5,9 +5,9 @@ Bring a modern and lightweight WebView control to wxWidgets on Microsoft Windows
 The web engine is based on weolar's [MiniBlink](https://github.com/weolar/miniblink49), a lite version of [Blink](https://www.chromium.org/blink) core of Chromium.
 
 ### Compatibility
-Support all Windows starting from Windows XP.
-Linked to system origin msvcrt.dll directly, NOT rely on VS runtime library.
-Passed all wxWebView test except Find in page and Print feature, you can try change [WebView sample](https://github.com/wxWidgets/wxWidgets/tree/master/samples/webview) in wxWidgets to use wxWebViewBlink.
+* Support all Windows starting from Windows XP.
+* Linked to system origin msvcrt.dll directly, NOT rely on VS runtime library.
+* Passed all wxWebView test except Find in page and Print feature, you can try changing [WebView sample](https://github.com/wxWidgets/wxWidgets/tree/master/samples/webview) in wxWidgets to use wxWebViewBlink.
 
 ### Usage
 1. Download compiled binary release from [here](https://github.com/imReker/miniblink49/releases).
