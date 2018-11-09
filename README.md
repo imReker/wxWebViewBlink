@@ -13,7 +13,7 @@ The web engine is based on weolar's [MiniBlink](https://github.com/weolar/minibl
 3. Include `WebViewMiniBlink.h` in your code.
 
 4. Create instance of wxWebViewBlink by using `wxWebViewBackendMiniBlink` backend:
-   ```
+```
     const char* backend =
 #if USE_WEBVIEW_MINIBLINK
     wxWebViewBackendMiniBlink;
@@ -21,5 +21,5 @@ The web engine is based on weolar's [MiniBlink](https://github.com/weolar/minibl
     wxWebViewBackendDefault;
 #endif
     wxWebView::New(this, ID_WEBVIEW, wxEmptyString, wxDefaultPosition, GetClientSize(), backend);
-   ```
-4. If you think the binary of MiniBlink is huge, use [UPX](https://upx.github.io/) to compress it to a much smaller one(~8MB).
+```
+4. If you think the binary of MiniBlink is huge, use [UPX](https://upx.github.io/) to compress it to a much smaller one (~5MiB).
