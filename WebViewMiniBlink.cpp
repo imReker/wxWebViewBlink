@@ -93,7 +93,10 @@ void wxWebViewMiniBlink::Shutdown()
 
 wxString wxWebViewMiniBlink::ConvertFrameId(wkeWebView webView, wkeWebFrameHandle frame)
 {
-	return frame == nullptr || wkeIsMainFrame(webView, frame) ? wxEmptyString : wxString::Format("%i", (int)frame);
+    if ( !frame || wkeIsMainFrame(webView, frame) )
+        return wxEmptyString;
+    
+    return wxString::Format("%i", (int)frame);
 }
 
 void wxWebViewMiniBlink::OnTitleChanged(wkeWebView /*webView*/, void* param, const wkeString title)
