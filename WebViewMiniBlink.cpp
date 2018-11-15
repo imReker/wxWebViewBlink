@@ -340,6 +340,73 @@ void wxWebViewMiniBlink::ShowDevTool(const wxString& path)
 	wkeSetDebugConfig(m_webview, "showDevTools", path.ToUTF8());
 }
 
+void wxWebViewMiniBlink::SetProxy(const wxString& proxy)
+{
+    wxURI uri;
+    if (proxy.IsEmpty()) {
+        m_proxy.type = WKE_PROXY_NONE;
+    }
+    else if (!uri.Create(proxy.Lower())) {
+        return;
+    }
+    strcpy_s(m_proxy.hostname, uri.GetServer().ToUTF8());
+    unsigned long port;
+    if (!uri.GetPort().ToCULong(&port)) {
+        return;
+    }
+    m_proxy.port = port;
+    if (uri.GetScheme().StartsWith("socks5")) {
+        if (uri.GetScheme().IsSameAs("socks5")) {
+            m_proxy.type = WKE_PROXY_SOCKS5;
+        }
+        else if (uri.GetScheme().IsSameAs("socks5h")) {
+            m_proxy.type = WKE_PROXY_SOCKS5HOSTNAME;
+        }
+        else {
+            return;
+        }
+        strcpy_s(m_proxy.username, uri.GetUser().ToUTF8());
+        strcpy_s(m_proxy.password, uri.GetPassword().ToUTF8());
+    }
+    else if (uri.GetScheme().IsSameAs("socks4a")) {
+        m_proxy.type = WKE_PROXY_SOCKS4A;
+    }
+    else if (uri.GetScheme().IsSameAs("socks4")) {
+        m_proxy.type = WKE_PROXY_SOCKS4;
+    }
+    else if (uri.GetScheme().IsSameAs("http")) {
+        m_proxy.type = WKE_PROXY_HTTP;
+    }
+    else {
+        return;
+    }
+    wkeSetProxy(&m_proxy);
+}
+
+wxString wxWebViewMiniBlink::GetProxy()
+{
+    switch (m_proxy.type) {
+    case WKE_PROXY_NONE:
+        break;
+    case WKE_PROXY_HTTP:
+        return wxString::Format("http://%s:%i", m_proxy.hostname, m_proxy.port);
+    case WKE_PROXY_SOCKS4:
+        return wxString::Format("socks4://%s:%i", m_proxy.hostname, m_proxy.port);
+    case WKE_PROXY_SOCKS4A:
+        return wxString::Format("socks4a://%s:%i", m_proxy.hostname, m_proxy.port);
+    case WKE_PROXY_SOCKS5:
+    case WKE_PROXY_SOCKS5HOSTNAME:
+        return wxString::Format("socks5%s://%s%s%s@%s:%i",
+            m_proxy.type == WKE_PROXY_SOCKS5HOSTNAME ? "h" : "",
+            strlen(m_proxy.username) > 0 ? m_proxy.username : "",
+            strlen(m_proxy.password) > 0 ? ":" : "",
+            strlen(m_proxy.password) > 0 ? m_proxy.password : "",
+            m_proxy.hostname,
+            m_proxy.port);
+    }
+    return wxEmptyString;
+}
+
 void wxWebViewMiniBlink::OnSize(wxSizeEvent& event)
 {
 	wxSize size = GetClientSize();

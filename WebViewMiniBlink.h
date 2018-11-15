@@ -27,8 +27,27 @@ public:
 	}
 
 	~wxWebViewMiniBlink();
+	
+    /*
+        Load and show Chromium DevTool at given path.
 
+        Example:
+        file:///C:/front_end/inspector.html
+    */
 	void ShowDevTool(const wxString& path);
+
+    /*
+        Set proxy for WebView. Use empty string to unset proxy.
+        Support following protocol:
+        http/socks4/socks4a/socks5/socks5h(socks5 hostname)
+
+        Example:
+        https://127.0.0.1:8888
+        socks5://username:password@127.0.0.1:8888
+    */
+    void SetProxy(const wxString& proxy);
+
+    wxString GetProxy();
 
 	void OnSize(wxSizeEvent &event);
 
