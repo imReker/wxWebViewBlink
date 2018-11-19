@@ -2,7 +2,7 @@
 
 Bring a modern and lightweight WebView control to wxWidgets on Microsoft Windows.
 
-The web engine is based on weolar's [MiniBlink](https://github.com/weolar/miniblink49), a lite version of [Blink](https://www.chromium.org/blink) core of Chromium.
+wxWebViewBlink is a Chromium webview backend for wxWidgets using weolar's [MiniBlink](https://github.com/weolar/miniblink49), a lite version of [Blink](https://www.chromium.org/blink) core of Google Chromium.
 
 ### Compatibility
 * Support all Windows starting from Windows XP.
