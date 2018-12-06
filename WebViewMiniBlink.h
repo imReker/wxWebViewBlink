@@ -141,6 +141,7 @@ private:
 	wxVector<wxSharedPtr<wxWebViewHandler> > m_handlerList;
 
 	bool m_busy;
+    wkeProxy m_proxy;
 
 	wkeWebView m_webview = nullptr;
 
